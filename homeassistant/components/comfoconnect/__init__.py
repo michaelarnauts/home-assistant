@@ -11,6 +11,7 @@ from homeassistant.const import (
     CONF_TOKEN,
     EVENT_HOMEASSISTANT_STOP,
 )
+from homeassistant.exceptions import PlatformNotReady
 from homeassistant.helpers import discovery
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.dispatcher import dispatcher_send
@@ -62,7 +63,8 @@ def setup(hass, config):
     bridges = Bridge.discover(host)
     if not bridges:
         _LOGGER.error("Could not connect to ComfoConnect bridge on %s", host)
-        return False
+        raise PlatformNotReady
+
     bridge = bridges[0]
     _LOGGER.info("Bridge found: %s (%s)", bridge.uuid.hex(), bridge.host)
 
