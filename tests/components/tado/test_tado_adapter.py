@@ -1,6 +1,5 @@
 """The tado_adapter tests for the tado platform."""
 
-
 from tests.components.tado.mocks import _mock_tado_climate_zone_from_fixture
 
 
@@ -391,33 +390,95 @@ async def test_smartac3_turning_off(hass):
     assert smartac3_turning_off.precision == 0.1
 
 
-async def test_michael_heat_mode(hass):
-    """Test michael's tado."""
-    michael_heat_mode = await _mock_tado_climate_zone_from_fixture(
-        hass, "michael_heat_mode.json"
+async def test_tadov2_heating_auto_mode(hass):
+    """Test tadov2 heating auto mode."""
+    mode = await _mock_tado_climate_zone_from_fixture(
+        hass, "tadov2.heating.auto_mode.json"
     )
-    assert michael_heat_mode.preparation is False
-    assert michael_heat_mode.open_window is False
-    assert michael_heat_mode.open_window_attr == {}
-    assert michael_heat_mode.current_temp == 20.06
-    assert michael_heat_mode.current_temp_timestamp == "2020-03-09T08:16:49.271Z"
-    assert michael_heat_mode.connection is None
-    assert michael_heat_mode.tado_mode == "HOME"
-    assert michael_heat_mode.overlay_active is False
-    assert michael_heat_mode.overlay_termination_type is None
-    assert michael_heat_mode.current_humidity == 41.8
-    assert michael_heat_mode.current_humidity_timestamp == "2020-03-09T08:16:49.271Z"
-    assert michael_heat_mode.ac_power_timestamp is None
-    assert michael_heat_mode.heating_power_timestamp == "2020-03-09T08:20:47.299Z"
-    assert michael_heat_mode.ac_power is None
-    assert michael_heat_mode.heating_power is None
-    assert michael_heat_mode.heating_power_percentage == 0.0
-    assert michael_heat_mode.is_away is False
-    assert michael_heat_mode.power == "ON"
-    assert michael_heat_mode.current_hvac_action == "idle"
-    assert michael_heat_mode.current_tado_fan_speed == "AUTO"
-    assert michael_heat_mode.link == "ONLINE"
-    assert michael_heat_mode.current_tado_hvac_mode == "SMART_SCHEDULE"
-    assert michael_heat_mode.target_temp == 20.0
-    assert michael_heat_mode.available is True
-    assert michael_heat_mode.precision == 0.1
+    assert mode.preparation is False
+    assert mode.open_window is False
+    assert mode.open_window_attr == {}
+    assert mode.current_temp == 20.65
+    assert mode.current_temp_timestamp == "2020-03-10T07:44:11.947Z"
+    assert mode.connection is None
+    assert mode.tado_mode == "HOME"
+    assert mode.overlay_active is False
+    assert mode.overlay_termination_type is None
+    assert mode.current_humidity == 45.20
+    assert mode.current_humidity_timestamp == "2020-03-10T07:44:11.947Z"
+    assert mode.ac_power_timestamp is None
+    assert mode.heating_power_timestamp == "2020-03-10T07:47:45.978Z"
+    assert mode.ac_power is None
+    assert mode.heating_power is None
+    assert mode.heating_power_percentage == 0.0
+    assert mode.is_away is False
+    assert mode.power == "ON"
+    assert mode.current_hvac_action == "idle"
+    assert mode.current_tado_fan_speed == "AUTO"
+    assert mode.link == "ONLINE"
+    assert mode.current_tado_hvac_mode == "SMART_SCHEDULE"
+    assert mode.target_temp == 20.0
+    assert mode.available is True
+    assert mode.precision == 0.1
+
+
+async def test_tadov2_heating_manual_mode(hass):
+    """Test tadov2 heating manual mode."""
+    mode = await _mock_tado_climate_zone_from_fixture(
+        hass, "tadov2.heating.manual_mode.json"
+    )
+    assert mode.preparation is False
+    assert mode.open_window is False
+    assert mode.open_window_attr == {}
+    assert mode.current_temp == 20.65
+    assert mode.current_temp_timestamp == "2020-03-10T07:44:11.947Z"
+    assert mode.connection is None
+    assert mode.tado_mode == "HOME"
+    assert mode.overlay_active is True
+    assert mode.overlay_termination_type == "MANUAL"
+    assert mode.current_humidity == 45.2
+    assert mode.current_humidity_timestamp == "2020-03-10T07:44:11.947Z"
+    assert mode.ac_power_timestamp is None
+    assert mode.heating_power_timestamp == "2020-03-10T07:47:45.978Z"
+    assert mode.ac_power is None
+    assert mode.heating_power is None
+    assert mode.heating_power_percentage == 0.0
+    assert mode.is_away is False
+    assert mode.power == "ON"
+    assert mode.current_hvac_action == "idle"
+    assert mode.current_tado_fan_speed == "AUTO"
+    assert mode.link == "ONLINE"
+    assert mode.current_tado_hvac_mode == "SMART_SCHEDULE"
+    assert mode.target_temp == 20.5
+    assert mode.available is True
+    assert mode.precision == 0.1
+
+
+async def test_tadov2_heating_off_mode(hass):
+    """Test tadov2 heating off mode."""
+    await _mock_tado_climate_zone_from_fixture(hass, "tadov2.heating.off_mode.json")
+    # TODO
+
+
+async def test_tadov2_water_heater_auto_mode(hass):
+    """Test tadov2 water heater auto mode."""
+    await _mock_tado_climate_zone_from_fixture(
+        hass, "tadov2.water_heater.auto_mode.json"
+    )
+    # TODO
+
+
+async def test_tadov2_water_heater_manual_mode(hass):
+    """Test tadov2 water heater manual mode."""
+    await _mock_tado_climate_zone_from_fixture(
+        hass, "tadov2.water_heater.manual_mode.json"
+    )
+    # TODO
+
+
+async def test_tadov2_water_heater_off_mode(hass):
+    """Test tadov2 water heater off mode."""
+    await _mock_tado_climate_zone_from_fixture(
+        hass, "tadov2.water_heater.off_mode.json"
+    )
+    # TODO
